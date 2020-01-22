@@ -7,19 +7,19 @@ var gameOver = false;
 var colors = [];
 var pickedColor;
 var body = document.querySelector('body');
-var cards = document.querySelectorAll('.card');
+var cards;
 var colorDisplay = document.querySelector('#color-picked');
 var messageDisplay = document.querySelector('#message');
 var h1 = document.querySelector('h1');
 var resetButton = document.querySelector('#reset');
 var resetDisplay = document.querySelector('#reset span');
-var hardButton = document.querySelector('#hard');
-var easyButton = document.querySelector('#easy');
+var cardContainer = document.querySelector('#card-container');
+var modeButtons = document.querySelectorAll('.mode-btn');
 
 function init() {
+  levelMode('easy');
   initCards();
   reset();
-  easyButton.classList.add('selected-level-btn');
 }
 
 function initCards() {
@@ -74,20 +74,44 @@ function reset() {
   body.style.backgroundColor = '#232323';
 }
 
+modeButtons.forEach(function (modeButton) {
+  modeButton.addEventListener('click', modeButtonStyle);
+});
+
+function modeButtonStyle(event) {
+  modeButtons.forEach(function (modeButton) {
+    modeButton.classList.remove('selected-mode-btn');
+  });
+
+  event.target.classList.add('selected-mode-btn');
+  levelMode(event.target.id);
+}
+
+function levelMode(mode) {
+  cardContainer.innerHTML = '';
+  switch (mode) {
+    case 'easy':
+      numCards = 3;
+      break;
+    case 'hard':
+      numCards = 6;
+      break;
+    default:
+      numCards = 3;
+      break;
+  }
+
+  for (var i = 0; i < numCards; i++) {
+    cardContainer.innerHTML += '<div class="card"></div>';
+  }
+
+  cards = document.querySelectorAll('.card');
+  initCards();
+  reset();
+}
+
 resetButton.addEventListener('click', function () {
   reset();
-});
-
-hardButton.addEventListener('click', function () {
-  reset();
-  this.classList.add('selected-level-btn');
-  easyButton.classList.remove('selected-level-btn');
-});
-
-easyButton.addEventListener('click', function () {
-  reset();
-  this.classList.add('selected-level-btn');
-  hardButton.classList.remove('selected-level-btn');
 });
 
 function changeColors(color) {

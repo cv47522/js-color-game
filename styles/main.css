@@ -33,14 +33,14 @@ body {
 	padding: 0 1rem;
 }
 
-.level-btn{
+.mode-btn{
 	padding: 0 1rem;
 	cursor: pointer;
 }
-.level-btn:hover{
+.mode-btn:hover{
 	color: #D455BE;
 }
-.selected-level-btn{
+.selected-mode-btn{
 	font-weight: bold;
 	color: white;
 	background-color: #4F72B8;
