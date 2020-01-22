@@ -33,15 +33,36 @@ body {
 	padding: 0 1rem;
 }
 
+.level-btn{
+	padding: 0 1rem;
+	cursor: pointer;
+}
+.level-btn:hover{
+	color: #D455BE;
+}
+.selected-level-btn{
+	font-weight: bold;
+	color: white;
+	background-color: #4F72B8;
+	border-radius: 999rem;
+}
+
 #about {
 	margin-left: auto;
 	color: #bbb;
 }
+#about a{
+	color: #bbb;
+	text-decoration: none;;
+}
+#about a:hover{
+	color: #72A5AD;
+}
 
 .container {
-    margin-left: auto;
+  margin-left: auto;
 	margin-right: auto;
-    max-width: 520px;
+  max-width: 520px;
 }
 
 #card-container::after {
