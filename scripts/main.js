@@ -2,6 +2,7 @@ window.onload = function () {
   init();
 };
 
+var gameOver = false;
 var numCards = 3;
 var gameOver = false;
 var colors = [];
@@ -15,6 +16,8 @@ var resetButton = document.querySelector('#reset');
 var resetDisplay = document.querySelector('#reset span');
 var cardContainer = document.querySelector('#card-container');
 var modeButtons = document.querySelectorAll('.mode-btn');
+var countDownText = document.querySelector('#count-down');
+var timerSeconds = 5;
 
 function init() {
   levelMode('easy');
@@ -89,12 +92,27 @@ function modeButtonStyle(event) {
 
 function levelMode(mode) {
   cardContainer.innerHTML = '';
+  countDownText.innerHTML = '';
   switch (mode) {
     case 'easy':
       numCards = 3;
       break;
     case 'hard':
       numCards = 6;
+      break;
+    case 'nightmare':
+      numCards = 6;
+      var timer = setInterval(function () {
+        countDownText.innerHTML = ' ' + timerSeconds;
+        timerSeconds -= 1;
+        if (timerSeconds <= 0) {
+          clearInterval(timer);
+          messageDisplay.innerHTML = 'TIMEOUT!';
+          countDownText.innerHTML = '';
+          timerSeconds = 5;
+        }
+      }, 1000);
+
       break;
     default:
       numCards = 3;
