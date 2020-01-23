@@ -121,8 +121,9 @@ function levelMode(mode) {
       break;
     case 'nightmare':
       numCards = 6;
+      countDownText.innerHTML = ' ' + timerSeconds;
       timer = setInterval(nightmareTimer, 1000);
-      blink = setInterval(blinkBackground, 80);
+      blink = setInterval(blinkBackground, 500);
       break;
     default:
       numCards = 3;
@@ -139,9 +140,8 @@ function levelMode(mode) {
 }
 
 function nightmareTimer() {
-  countDownText.innerHTML = ' ' + timerSeconds;
   timerSeconds -= 1;
-//  blinkBackground();
+  countDownText.innerHTML = ' ' + timerSeconds;
 
   if (timerSeconds <= 0) {
     clearInterval(timer);
@@ -162,7 +162,7 @@ function blinkBackground() {
   }
 
   if (x == 1 && set == 1) {
-    blinkColor = '#FFFFFF';
+    blinkColor = '#404040';
     x = 0;
     set = 0;
   }
