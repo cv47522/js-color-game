@@ -20,6 +20,8 @@ var countDownText = document.querySelector('#count-down');
 var timerSeconds = 5;
 var timer;
 var blink;
+var x = 1; // global variable, for blink bgColor
+var set; // local variable, for blink bgColor
 
 function init() {
   levelMode('easy');
@@ -43,8 +45,7 @@ function initCards() {
           messageDisplay.textContent = 'Correct!';
           countDownText.innerHTML = '';
           stopPlay();
-          clearInterval(timer);
-          clearInterval(blink);
+
         } else {
           this.style.opacity = 0;
           messageDisplay.textContent = 'Try Again';
@@ -55,6 +56,9 @@ function initCards() {
 }
 
 function stopPlay() {
+  clearInterval(timer);
+  clearInterval(blink);
+
   resetDisplay.textContent = 'Play Again';
   changeColors('#FFF');
   body.style.backgroundColor = pickedColor;
@@ -118,7 +122,7 @@ function levelMode(mode) {
     case 'nightmare':
       numCards = 6;
       timer = setInterval(nightmareTimer, 1000);
-      blink = setInterval(blinkBackground, 100);
+      blink = setInterval(blinkBackground, 80);
       break;
     default:
       numCards = 3;
@@ -137,12 +141,11 @@ function levelMode(mode) {
 function nightmareTimer() {
   countDownText.innerHTML = ' ' + timerSeconds;
   timerSeconds -= 1;
-
-  console.log(body.className);
+//  blinkBackground();
 
   if (timerSeconds <= 0) {
     clearInterval(timer);
-    clearInterval(blink);
+
     stopPlay();
     messageDisplay.textContent = 'TIMEOUT!';
     countDownText.innerHTML = '';
@@ -150,14 +153,22 @@ function nightmareTimer() {
 }
 
 function blinkBackground() {
-  var bgColor = body.style.backgroundColor;
-  if (bgColor === '#232323') {
-    bgColor = '#FFFFFF';
-  }else {
-    bgColor = '#232323';
+  set = 1;
+  var blinkColor = body.style.backgroundColor;
+  if (x == 0 && set == 1) {
+    blinkColor = '#232323';
+    x = 1;
+    set = 0;
   }
 
-  console.log(bgColor);
+  if (x == 1 && set == 1) {
+    blinkColor = '#FFFFFF';
+    x = 0;
+    set = 0;
+  }
+
+  body.style.backgroundColor = blinkColor;
+  console.log(blinkColor + ' ' + x + ', ' + set);
 }
 
 resetButton.addEventListener('click', function () {
