@@ -16,6 +16,10 @@ body {
     -moz-transition: background 0.6s;
 }
 
+.blink-bg{
+	background-color: white;
+}
+
 #stripe {
 	background: white;
 	padding: 1rem;

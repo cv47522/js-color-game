@@ -2,7 +2,6 @@ window.onload = function () {
   init();
 };
 
-var gameOver = false;
 var numCards = 3;
 var gameOver = false;
 var colors = [];
@@ -16,8 +15,11 @@ var resetButton = document.querySelector('#reset');
 var resetDisplay = document.querySelector('#reset span');
 var cardContainer = document.querySelector('#card-container');
 var modeButtons = document.querySelectorAll('.mode-btn');
+var whichMode;
 var countDownText = document.querySelector('#count-down');
 var timerSeconds = 5;
+var timer;
+var blink;
 
 function init() {
   levelMode('easy');
@@ -37,21 +39,30 @@ function initCards() {
 
         // alert(this.style.backgroundColor);
         //compare color to pickedColor
-        if (clickedColor === pickedColor) {
+        if (clickedColor === pickedColor && timerSeconds >= 0) {
           messageDisplay.textContent = 'Correct!';
-          resetDisplay.textContent = 'Play Again';
-          changeColors('#FFF');
-          body.style.backgroundColor = clickedColor;
-          gameOver = true;
+          countDownText.innerHTML = '';
+          stopPlay();
+          clearInterval(timer);
+          clearInterval(blink);
         } else {
           this.style.opacity = 0;
           messageDisplay.textContent = 'Try Again';
         }
+
       });
   }
 }
 
+function stopPlay() {
+  resetDisplay.textContent = 'Play Again';
+  changeColors('#FFF');
+  body.style.backgroundColor = pickedColor;
+  gameOver = true;
+}
+
 function reset() {
+  timerSeconds = 5;
   gameOver = false;
   colors = generateRandomColors(numCards);
 
@@ -88,11 +99,15 @@ function modeButtonStyle(event) {
 
   event.target.classList.add('selected-mode-btn');
   levelMode(event.target.id);
+  whichMode = event.target.id;
 }
 
 function levelMode(mode) {
+  clearInterval(timer);
+  clearInterval(blink);
   cardContainer.innerHTML = '';
   countDownText.innerHTML = '';
+
   switch (mode) {
     case 'easy':
       numCards = 3;
@@ -102,17 +117,8 @@ function levelMode(mode) {
       break;
     case 'nightmare':
       numCards = 6;
-      var timer = setInterval(function () {
-        countDownText.innerHTML = ' ' + timerSeconds;
-        timerSeconds -= 1;
-        if (timerSeconds <= 0) {
-          clearInterval(timer);
-          messageDisplay.innerHTML = 'TIMEOUT!';
-          countDownText.innerHTML = '';
-          timerSeconds = 5;
-        }
-      }, 1000);
-
+      timer = setInterval(nightmareTimer, 1000);
+      blink = setInterval(blinkBackground, 100);
       break;
     default:
       numCards = 3;
@@ -128,8 +134,35 @@ function levelMode(mode) {
   reset();
 }
 
+function nightmareTimer() {
+  countDownText.innerHTML = ' ' + timerSeconds;
+  timerSeconds -= 1;
+
+  console.log(body.className);
+
+  if (timerSeconds <= 0) {
+    clearInterval(timer);
+    clearInterval(blink);
+    stopPlay();
+    messageDisplay.textContent = 'TIMEOUT!';
+    countDownText.innerHTML = '';
+  }
+}
+
+function blinkBackground() {
+  var bgColor = body.style.backgroundColor;
+  if (bgColor === '#232323') {
+    bgColor = '#FFFFFF';
+  }else {
+    bgColor = '#232323';
+  }
+
+  console.log(bgColor);
+}
+
 resetButton.addEventListener('click', function () {
   reset();
+  levelMode(whichMode);
 });
 
 function changeColors(color) {
