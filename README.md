@@ -1,4 +1,8 @@
-# Lab4 Assignment - Color Game
+# Pure JavaScript Color Game (Classic Web Structure)
+### Checkout My Final Implemented Game: https://cv47522.github.io/js-color-game-webpack/
+
+This version is built based on the classic structure of a web page. <br/>
+Webpack modularized version: https://github.com/cv47522/js-color-game-webpack
 
 ## Grading
 #### 1. Hard mode <b>(60%)</b>
