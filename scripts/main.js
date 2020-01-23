@@ -123,7 +123,7 @@ function levelMode(mode) {
       numCards = 6;
       countDownText.innerHTML = ' ' + timerSeconds;
       timer = setInterval(nightmareTimer, 1000);
-      blink = setInterval(blinkBackground, 500);
+      blink = setInterval(blinkBackground, 250);
       break;
     default:
       numCards = 3;
@@ -145,7 +145,6 @@ function nightmareTimer() {
 
   if (timerSeconds <= 0) {
     clearInterval(timer);
-
     stopPlay();
     messageDisplay.textContent = 'TIMEOUT!';
     countDownText.innerHTML = '';
