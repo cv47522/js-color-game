@@ -30,7 +30,6 @@
 
 ## Submission
 Open a new merge request when you finished your quiz. <br />
-The deadline of this assignment is `2019/03/17 00:00`.<br />
 
 <b>Note</b>: When you open merge request, `Title` should be : std{your ID} Submission
 

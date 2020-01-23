@@ -123,7 +123,7 @@ function levelMode(mode) {
       numCards = 6;
       countDownText.innerHTML = ' ' + timerSeconds;
       timer = setInterval(nightmareTimer, 1000);
-      blink = setInterval(blinkBackground, 250);
+      blink = setInterval(blinkBackground, 500);
       break;
     default:
       numCards = 3;
